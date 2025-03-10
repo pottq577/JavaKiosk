@@ -7,7 +7,8 @@ public class Main {
 
   public static void main(String[] args) {
     List<MenuItem> menuItems = new ArrayList<>();
-    Kiosk kiosk = new Kiosk(menuItems);
+    Menu menu = new Menu(menuItems);
+    Kiosk kiosk = new Kiosk();
 
     menuItems.add(new MenuItem("ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
     menuItems.add(new MenuItem("SmokeShack", 8.9, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));

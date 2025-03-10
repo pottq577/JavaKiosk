@@ -1,17 +1,12 @@
 package com.sparta.kiosk.app;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
 
-  List<MenuItem> menuItems = new ArrayList<>();
+  List<MenuItem> menuItems;
   Scanner scanner = new Scanner(System.in);
-
-  public Kiosk(List<MenuItem> menuItems) {
-    this.menuItems = menuItems;
-  }
 
   public void start() {
     while (true) {
