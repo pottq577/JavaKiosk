@@ -16,6 +16,7 @@ public class Kiosk {
 
   public void start() {
     while (true) {
+//      카테고리 선택
       printCategory();
       int userCategoryChoice = scanner.nextInt();
       if (userCategoryChoice == 0) {
@@ -23,6 +24,7 @@ public class Kiosk {
         break;
       }
 
+//      카테고리 내 메뉴 선택
       printMenu(userCategoryChoice);
       int userMenuChoice = scanner.nextInt();
       if (userMenuChoice == 0) {
@@ -31,6 +33,7 @@ public class Kiosk {
         continue;
       }
 
+//      선택한 메뉴 출력
       printUserMenu(userMenuChoice);
     }
   }
@@ -54,8 +57,8 @@ public class Kiosk {
 
   public void printUserMenu(int userMenuChoice){
     System.out.println("선택한 메뉴: " +
-        menu.getMenuItems().get(userMenuChoice - 1).menuName + ", " +
-        menu.getMenuItems().get(userMenuChoice - 1).menuPrice + ", " +
+        menu.getMenuItems().get(userMenuChoice - 1).menuName + " | " +
+        "W " + menu.getMenuItems().get(userMenuChoice - 1).menuPrice + " | " +
         menu.getMenuItems().get(userMenuChoice - 1).menuDesc + "\n"
     );
   }
