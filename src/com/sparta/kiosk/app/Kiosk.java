@@ -1,13 +1,10 @@
 package com.sparta.kiosk.app;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
 
   Menu menu;
-  List<Menu> menuList = new ArrayList<>();
   Scanner scanner = new Scanner(System.in);
 
   public Kiosk(Menu menu) {
@@ -34,11 +31,11 @@ public class Kiosk {
       }
 
 //      선택한 메뉴 출력
-      printUserMenu(userMenuChoice);
+      printUserMenu(userMenuChoice, menu.getCategory(userCategoryChoice - 1));
     }
   }
 
-  public void printCategory(){
+  public void printCategory() {
     System.out.println("[ MAIN MENU ]");
     for (int i = 0; i < menu.getCategory().length; i++) {
       System.out.println(i + 1 + ". " + menu.getCategory(i));
@@ -47,19 +44,21 @@ public class Kiosk {
     System.out.print("\n선택: ");
   }
 
-  public void printMenu(int userCategoryChoice){
-    System.out.println("\n[ " + menu.getCategory(userCategoryChoice - 1) + " MENU ]");
-    menu.printMenuItems();
+  public void printMenu(int userCategoryChoice) {
+    String selectedCategory = menu.getCategory(userCategoryChoice - 1);
+    System.out.println("\n[ " + selectedCategory + " MENU ]");
+    menu.printMenuItems(selectedCategory);
     System.out.println("0. 뒤로가기");
 
     System.out.print("\n선택: ");
   }
 
-  public void printUserMenu(int userMenuChoice){
+  public void printUserMenu(int userMenuChoice, String category) {
+    MenuItem selectedMenu = menu.getMenuItems(category).get(userMenuChoice - 1);
     System.out.println("선택한 메뉴: " +
-        menu.getMenuItems().get(userMenuChoice - 1).menuName + " | " +
-        "W " + menu.getMenuItems().get(userMenuChoice - 1).menuPrice + " | " +
-        menu.getMenuItems().get(userMenuChoice - 1).menuDesc + "\n"
+        selectedMenu.menuName + " | " +
+        "W " + selectedMenu.menuPrice + " | " +
+        selectedMenu.menuDesc + "\n"
     );
   }
 }
