@@ -7,14 +7,18 @@ import java.util.Map;
 
 public class Menu {
 
+//  속성
   private final Map<String, List<MenuItem>> categoryMenuMap = new HashMap<>();
   private final String[] category;
 
+//  생성자
   public Menu(String[] category) {
     this.category = category;
     addMenu();
   }
 
+//  기능
+  // 카테고리별로 메뉴를 등록하는 메소드
   private void addMenu() {
     List<MenuItem> burgers = new ArrayList<>();
     burgers.add(new MenuItem("ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
@@ -37,6 +41,10 @@ public class Menu {
     categoryMenuMap.put("Dessert", desserts);
   }
 
+  /**
+   * 사용자가 선택한 카테고리의 메뉴를 출력하는 메소드
+   * @param category 사용자가 선택한 카테고리
+   */
   public void printMenuItems(String category) {
     List<MenuItem> menus = categoryMenuMap.get(category);
     for (int i = 0; i < menus.size(); i++) {
@@ -50,14 +58,28 @@ public class Menu {
     }
   }
 
+  /**
+   * 사용자가 선택한 카테고리의 메뉴 아이템을 가져오는 Getter
+   * @param category 사용자가 선택한 카테고리
+   * @return 새로운 카테고리의 메뉴 리스트
+   */
   public List<MenuItem> getMenuItems(String category) {
     return new ArrayList<>(categoryMenuMap.get(category));
   }
 
+  /**
+   * 카테고리 배열을 가져오는 Getter
+   * @param index 배열의 인덱스
+   * @return index번째 카테고리 문자열
+   */
   public String getCategory(int index) {
     return category[index];
   }
 
+  /**
+   * 카테고리 배열을 가져오는 Getter
+   * @return 카테고리 배열의 clone
+   */
   public String[] getCategory() {
     return category.clone();
   }
