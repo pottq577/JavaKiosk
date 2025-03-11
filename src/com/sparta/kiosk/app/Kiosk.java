@@ -3,6 +3,8 @@ package com.sparta.kiosk.app;
 import java.util.Scanner;
 
 public class Kiosk {
+  private final static String EXIT_PROGRAM_MESSAGE = "\n프로그램을 종료합니다.";
+  private final static String RETURN_TO_MAIN_MENU_MESSAGE = "\n메인 메뉴로 돌아갑니다.\n";
 
   //  속성
   private final Menu menu;
@@ -20,7 +22,7 @@ public class Kiosk {
       menu.printCategory();
       int userCategoryChoice = scanner.nextInt();
       if (userCategoryChoice == 0) {
-        System.out.println("\n프로그램을 종료합니다.");
+        System.out.println(EXIT_PROGRAM_MESSAGE);
         break;
       }
 
@@ -28,8 +30,7 @@ public class Kiosk {
       menu.printMenu(userCategoryChoice);
       int userMenuChoice = scanner.nextInt();
       if (userMenuChoice == 0) {
-        System.out.println("\n메인 메뉴로 돌아갑니다.");
-        System.out.println();
+        System.out.println(RETURN_TO_MAIN_MENU_MESSAGE);
         continue;
       }
 
