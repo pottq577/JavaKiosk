@@ -19,12 +19,12 @@ public class Menu {
   //  생성자
   public Menu(String[] category) {
     this.category = category;
-    addMenu();
+    addMenuItem();
   }
 
   //  기능
   // 카테고리별로 메뉴를 등록하는 메소드
-  private void addMenu() {
+  public void addMenuItem() {
     List<MenuItem> burgers = new ArrayList<>();
     burgers.add(new MenuItem("ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
     burgers.add(new MenuItem("SmokeShack", 8.9, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
@@ -127,8 +127,7 @@ public class Menu {
   }
 
   /**
-   * 사용자가 선택한 카테고리 배열의 index를 설정하는 Setter
-   * selectedCategory도 동시에 초기화 진행
+   * 사용자가 선택한 카테고리 배열의 index를 설정하는 Setter selectedCategory도 동시에 초기화 진행
    *
    * @param userCategoryChoice 사용자가 선택한 배열의 index
    */
@@ -139,6 +138,7 @@ public class Menu {
 
   /**
    * 사용자가 선택한 메뉴 배열의 index를 설정하는 Setter
+   *
    * @param userMenuChoice 사용자가 선택한 메뉴의 index
    */
   private void setUserMenuChoiceIndex(int userMenuChoice) {
