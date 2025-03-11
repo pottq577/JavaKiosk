@@ -12,7 +12,9 @@ public class Menu {
   //  속성
   private final Map<String, List<MenuItem>> categoryMenuMap = new HashMap<>();
   private final String[] category;
-  private int userCategoryChoice;
+  private int userCategoryChoiceIndex;
+  private String selectedCategory;
+  private int userMenuChoiceIndex;
 
   //  생성자
   public Menu(String[] category) {
@@ -60,9 +62,8 @@ public class Menu {
    * @param userCategoryChoice 사용자가 선택한 카테고리 index
    */
   public void printMenu(int userCategoryChoice) {
-    setUserCategoryChoice(userCategoryChoice);
+    setUserCategoryChoiceIndex(userCategoryChoice);
 
-    String selectedCategory = getCategory(this.userCategoryChoice);
     System.out.println("\n[ " + selectedCategory + " MENU ]");
 
     List<MenuItem> menus = categoryMenuMap.get(selectedCategory);
@@ -85,8 +86,9 @@ public class Menu {
    * @param userMenuChoice 사용자가 선택한 메뉴
    */
   public void printUserMenu(int userMenuChoice) {
-    String category = getCategory(userCategoryChoice);
-    MenuItem selectedMenu = getMenuItems(category).get(userMenuChoice - 1);
+    setUserMenuChoiceIndex(userMenuChoice);
+
+    MenuItem selectedMenu = getMenuItems(selectedCategory).get(this.userMenuChoiceIndex);
 
     System.out.println("\n🍽️ 선택한 메뉴");
     System.out.printf("☞ %-14s | W %.1f | %s\n\n",
@@ -125,20 +127,21 @@ public class Menu {
   }
 
   /**
-   * 사용자가 선택한 카테고리 배열의 index를 가져오는 Getter
-   *
-   * @return 사용자가 선택한 배열의 index
-   */
-  public int getUserCategoryChoice() {
-    return this.userCategoryChoice;
-  }
-
-  /**
    * 사용자가 선택한 카테고리 배열의 index를 설정하는 Setter
+   * selectedCategory도 동시에 초기화 진행
    *
    * @param userCategoryChoice 사용자가 선택한 배열의 index
    */
-  public void setUserCategoryChoice(int userCategoryChoice) {
-    this.userCategoryChoice = userCategoryChoice - 1;
+  private void setUserCategoryChoiceIndex(int userCategoryChoice) {
+    this.userCategoryChoiceIndex = userCategoryChoice - 1;
+    this.selectedCategory = getCategory(this.userCategoryChoiceIndex);
+  }
+
+  /**
+   * 사용자가 선택한 메뉴 배열의 index를 설정하는 Setter
+   * @param userMenuChoice 사용자가 선택한 메뉴의 index
+   */
+  private void setUserMenuChoiceIndex(int userMenuChoice) {
+    this.userMenuChoiceIndex = userMenuChoice - 1;
   }
 }
