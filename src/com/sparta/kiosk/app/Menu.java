@@ -7,15 +7,15 @@ import java.util.Map;
 
 public class Menu {
 
-  public Map<String, List<MenuItem>> categoryMenuMap = new HashMap<>();
-  public String[] category;
+  private final Map<String, List<MenuItem>> categoryMenuMap = new HashMap<>();
+  private final String[] category;
 
   public Menu(String[] category) {
     this.category = category;
     addMenu();
   }
 
-  public void addMenu() {
+  private void addMenu() {
     List<MenuItem> burgers = new ArrayList<>();
     burgers.add(new MenuItem("ShackBurger", 6.9, "토마토, 양상추, 쉑소스가 토핑된 치즈버거"));
     burgers.add(new MenuItem("SmokeShack", 8.9, "베이컨, 체리 페퍼에 쉑소스가 토핑된 치즈버거"));
@@ -41,11 +41,12 @@ public class Menu {
     List<MenuItem> menus = categoryMenuMap.get(category);
     for (int i = 0; i < menus.size(); i++) {
       MenuItem menu = menus.get(i);
+
       System.out.println(
           i + 1 + ". "
-              + menu.menuName + " | "
-              + "W " + menu.menuPrice
-              + " | " + menu.menuDesc);
+              + menu.getMenuName() + " | "
+              + "W " + menu.getMenuPrice()
+              + " | " + menu.getMenuDesc());
     }
   }
 

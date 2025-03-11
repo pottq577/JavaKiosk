@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class Kiosk {
 
-  Menu menu;
-  Scanner scanner = new Scanner(System.in);
+  private final Menu menu;
 
   public Kiosk(Menu menu) {
     this.menu = menu;
   }
 
   public void start() {
+    Scanner scanner = new Scanner(System.in);
     while (true) {
 //      카테고리 선택
       printCategory();
@@ -33,9 +33,10 @@ public class Kiosk {
 //      선택한 메뉴 출력
       printUserMenu(userMenuChoice, menu.getCategory(userCategoryChoice - 1));
     }
+    scanner.close();
   }
 
-  public void printCategory() {
+  private void printCategory() {
     System.out.println("[ MAIN MENU ]");
     for (int i = 0; i < menu.getCategory().length; i++) {
       System.out.println(i + 1 + ". " + menu.getCategory(i));
@@ -44,21 +45,21 @@ public class Kiosk {
     System.out.print("\n선택: ");
   }
 
-  public void printMenu(int userCategoryChoice) {
+  private void printMenu(int userCategoryChoice) {
     String selectedCategory = menu.getCategory(userCategoryChoice - 1);
     System.out.println("\n[ " + selectedCategory + " MENU ]");
     menu.printMenuItems(selectedCategory);
     System.out.println("0. 뒤로가기");
-
     System.out.print("\n선택: ");
   }
 
-  public void printUserMenu(int userMenuChoice, String category) {
+  private void printUserMenu(int userMenuChoice, String category) {
     MenuItem selectedMenu = menu.getMenuItems(category).get(userMenuChoice - 1);
+
     System.out.println("선택한 메뉴: " +
-        selectedMenu.menuName + " | " +
-        "W " + selectedMenu.menuPrice + " | " +
-        selectedMenu.menuDesc + "\n"
+        selectedMenu.getMenuName() + " | " +
+        "W " + selectedMenu.getMenuPrice() + " | " +
+        selectedMenu.getMenuDesc() + "\n"
     );
   }
 }
