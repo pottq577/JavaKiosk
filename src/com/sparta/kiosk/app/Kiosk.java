@@ -3,6 +3,7 @@ package com.sparta.kiosk.app;
 import java.util.Scanner;
 
 public class Kiosk {
+
   private final static String EXIT_PROGRAM_MESSAGE = "\n프로그램을 종료합니다.";
   private final static String RETURN_TO_MAIN_MENU_MESSAGE = "\n메인 메뉴로 돌아갑니다.\n";
 

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Menu {
+
   private final static String CHOICE_PROMPT = "\n선택: ";
 
   //  속성
@@ -67,12 +68,11 @@ public class Menu {
     List<MenuItem> menus = categoryMenuMap.get(selectedCategory);
     for (int i = 0; i < menus.size(); i++) {
       MenuItem menu = menus.get(i);
-
-      System.out.println(
-          i + 1 + ". "
-              + menu.getMenuName() + " | "
-              + "W " + menu.getMenuPrice()
-              + " | " + menu.getMenuDesc());
+      System.out.printf("%d. %-13s | W %.1f | %s\n",
+          i + 1,
+          menu.getMenuName(),
+          menu.getMenuPrice(),
+          menu.getMenuDesc());
     }
 
     System.out.println("0. 뒤로가기");
@@ -88,11 +88,11 @@ public class Menu {
     String category = getCategory(userCategoryChoice);
     MenuItem selectedMenu = getMenuItems(category).get(userMenuChoice - 1);
 
-    System.out.println("선택한 메뉴: " +
-        selectedMenu.getMenuName() + " | " +
-        "W " + selectedMenu.getMenuPrice() + " | " +
-        selectedMenu.getMenuDesc() + "\n"
-    );
+    System.out.println("\n🍽️ 선택한 메뉴");
+    System.out.printf("☞ %-14s | W %.1f | %s\n\n",
+        selectedMenu.getMenuName(),
+        selectedMenu.getMenuPrice(),
+        selectedMenu.getMenuDesc());
   }
 
   /**
