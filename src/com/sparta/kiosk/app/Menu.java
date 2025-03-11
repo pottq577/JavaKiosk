@@ -51,7 +51,7 @@ public class Menu {
   }
 
   public List<MenuItem> getMenuItems(String category) {
-    return categoryMenuMap.get(category);
+    return new ArrayList<>(categoryMenuMap.get(category));
   }
 
   public String getCategory(int index) {
@@ -59,6 +59,6 @@ public class Menu {
   }
 
   public String[] getCategory() {
-    return category;
+    return category.clone();
   }
 }
