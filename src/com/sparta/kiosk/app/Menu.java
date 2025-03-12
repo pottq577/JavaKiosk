@@ -7,8 +7,6 @@ import java.util.Map;
 
 public class Menu {
 
-  private static final String CHOICE_PROMPT = "\n선택: ";
-
   //  속성
   private final Map<String, List<MenuItem>> categoryMenuMap = new HashMap<>();
   private final String[] category;
@@ -53,7 +51,6 @@ public class Menu {
       System.out.println(i + 1 + ". " + getCategory(i));
     }
     System.out.println("0. 종료");
-    System.out.print(CHOICE_PROMPT);
   }
 
   /**
@@ -77,7 +74,6 @@ public class Menu {
     }
 
     System.out.println("0. 뒤로가기");
-    System.out.print(CHOICE_PROMPT);
   }
 
   /**

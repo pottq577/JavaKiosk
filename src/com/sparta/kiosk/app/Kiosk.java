@@ -11,16 +11,20 @@ public class Kiosk {
   private static final String INPUT_TYPE_ERROR = "\n입력 형식이 잘못되었습니다.\n숫자로 입력해주세요.\n";
   private static final String MENU_NUMBER_ERROR = "\n숫자를 잘못 입력하셨습니다.\n메뉴 번호를 확인해주세요.\n";
 
+  private static final String CHOICE_PROMPT = "\n선택: ";
 
   //  속성
   private final Menu menu;
+  private final Order order;
   private final Scanner scanner = new Scanner(System.in);
   private int userCategoryChoice;
   private int userMenuChoice;
+  private boolean isAddedToCart;
 
   //  생성자
   public Kiosk(Menu menu) {
     this.menu = menu;
+    this.order = new Order(menu);
   }
 
   //  기능
@@ -47,8 +51,8 @@ public class Kiosk {
     }
   }
 
-
   private boolean selectCategory() throws InputMismatchException {
+    System.out.print(CHOICE_PROMPT);
     userCategoryChoice = scanner.nextInt();
 
     if (userCategoryChoice == 0) {
@@ -60,6 +64,7 @@ public class Kiosk {
 
   private boolean selectMenu() throws ArrayIndexOutOfBoundsException {
     menu.printMenu(userCategoryChoice);
+    System.out.print(CHOICE_PROMPT);
     userMenuChoice = scanner.nextInt();
 
     if (userMenuChoice == 0) {
@@ -67,6 +72,10 @@ public class Kiosk {
       return true;
     }
     return false;
+  }
+
+  private void askAddToCart() {
+
   }
 
 }
