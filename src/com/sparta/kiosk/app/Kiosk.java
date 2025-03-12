@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 public class Kiosk {
 
-  private static final  String EXIT_PROGRAM_MESSAGE = "\n프로그램을 종료합니다.";
-  private static final  String RETURN_TO_MAIN_MENU_MESSAGE = "\n메인 메뉴로 돌아갑니다.\n";
+  private static final String EXIT_PROGRAM_MESSAGE = "\n프로그램을 종료합니다.";
+  private static final String RETURN_TO_MAIN_MENU_MESSAGE = "\n메인 메뉴로 돌아갑니다.\n";
 
   private static final String INPUT_TYPE_ERROR = "\n입력 형식이 잘못되었습니다.\n숫자로 입력해주세요.\n";
   private static final String MENU_NUMBER_ERROR = "\n숫자를 잘못 입력하셨습니다.\n메뉴 번호를 확인해주세요.\n";

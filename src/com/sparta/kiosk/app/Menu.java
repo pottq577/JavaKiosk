@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Menu {
 
-  private final static String CHOICE_PROMPT = "\n선택: ";
+  private static final String CHOICE_PROMPT = "\n선택: ";
 
   //  속성
   private final Map<String, List<MenuItem>> categoryMenuMap = new HashMap<>();
