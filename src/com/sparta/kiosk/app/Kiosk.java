@@ -19,7 +19,6 @@ public class Kiosk {
   private final Scanner scanner = new Scanner(System.in);
   private int userCategoryChoice;
   private int userMenuChoice;
-  private boolean isAddedToCart;
 
   //  생성자
   public Kiosk(Menu menu) {
@@ -29,22 +28,42 @@ public class Kiosk {
 
   //  기능
   public void start() {
+
     while (true) {
+      boolean isCartNotEmpty = order.getAddedToCart();
+      // 카테고리 출력
       menu.printCategory();
 
+      if (isCartNotEmpty) {
+        order.printOrderMenu();
+      }
+
       try {
+        // 카테고리 선택
         if (selectCategory()) {
           break;
         }
+        // 카테고리의 메뉴 선택
         if (selectMenu()) {
           continue;
         }
+
+        // 선택한 메뉴 출력
         menu.printUserMenu(userMenuChoice);
+
+        // 장바구니에 넣을거임?
+        order.askAddToCart(scanner, userCategoryChoice, userMenuChoice);
+
+        if (order.getAddedToCart()) {
+          order.printMenuAddedToCart();
+        } else {
+          System.out.println("ㄴㄴ 안삼");
+        }
 
       } catch (InputMismatchException e) {
         System.out.println(INPUT_TYPE_ERROR);
         scanner.nextLine();
-      } catch (ArrayIndexOutOfBoundsException e) {
+      } catch (IndexOutOfBoundsException e) {
         System.out.println(MENU_NUMBER_ERROR);
         scanner.nextLine();
       }
@@ -62,8 +81,13 @@ public class Kiosk {
     return false;
   }
 
-  private boolean selectMenu() throws ArrayIndexOutOfBoundsException {
-    menu.printMenu(userCategoryChoice);
+  private boolean selectMenu() throws IndexOutOfBoundsException {
+
+    if (userCategoryChoice == 1 || userCategoryChoice == 2 || userCategoryChoice == 3) {
+      menu.printMenu(userCategoryChoice);
+    } else if (userCategoryChoice == 4 || userCategoryChoice == 5) {
+      System.out.println("주문 선택");
+    }
     System.out.print(CHOICE_PROMPT);
     userMenuChoice = scanner.nextInt();
 
@@ -72,10 +96,6 @@ public class Kiosk {
       return true;
     }
     return false;
-  }
-
-  private void askAddToCart() {
-
   }
 
 }

@@ -66,10 +66,7 @@ public class Menu {
     List<MenuItem> menus = categoryMenuMap.get(selectedCategory);
     for (int i = 0; i < menus.size(); i++) {
       MenuItem menu = menus.get(i);
-      System.out.printf("%d. %-13s | W %.1f | %s\n",
-          i + 1,
-          menu.getMenuName(),
-          menu.getMenuPrice(),
+      System.out.printf("%d. %-13s | W %.1f | %s\n", i + 1, menu.getMenuName(), menu.getMenuPrice(),
           menu.getMenuDesc());
     }
 
@@ -81,16 +78,14 @@ public class Menu {
    *
    * @param userMenuChoice 사용자가 선택한 메뉴
    */
-  public void printUserMenu(int userMenuChoice) {
+  public void printUserMenu(int userMenuChoice) throws IndexOutOfBoundsException {
     setUserMenuChoiceIndex(userMenuChoice);
 
     MenuItem selectedMenu = getMenuItems(selectedCategory).get(this.userMenuChoiceIndex);
 
     System.out.println("\n🍽️ 선택한 메뉴");
-    System.out.printf("☞ %-14s | W %.1f | %s\n\n",
-        selectedMenu.getMenuName(),
-        selectedMenu.getMenuPrice(),
-        selectedMenu.getMenuDesc());
+    System.out.printf("☞ %-14s | W %.1f | %s\n\n", selectedMenu.getMenuName(),
+        selectedMenu.getMenuPrice(), selectedMenu.getMenuDesc());
   }
 
   /**
