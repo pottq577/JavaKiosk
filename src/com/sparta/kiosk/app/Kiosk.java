@@ -82,11 +82,12 @@ public class Kiosk {
   }
 
   private boolean selectMenu() throws IndexOutOfBoundsException {
-
-    if (userCategoryChoice == 1 || userCategoryChoice == 2 || userCategoryChoice == 3) {
-      menu.printMenu(userCategoryChoice);
-    } else if (userCategoryChoice == 4 || userCategoryChoice == 5) {
-      System.out.println("주문 선택");
+    switch (userCategoryChoice) {
+      case 1, 2, 3 -> menu.printMenu(userCategoryChoice);
+      case 4, 5 -> System.out.println("주문 선택");
+      default -> {
+        System.out.println("잘못된 선택입니다.");
+      }
     }
     System.out.print(CHOICE_PROMPT);
     userMenuChoice = scanner.nextInt();
