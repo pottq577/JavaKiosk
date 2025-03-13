@@ -1,6 +1,7 @@
 package com.sparta.kiosk.app;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class Kiosk {
@@ -18,7 +19,9 @@ public class Kiosk {
   private final Order order;
   private final Scanner scanner = new Scanner(System.in);
   private int userCategoryChoice;
+  private String selectedCategory;
   private int userMenuChoice;
+  private List<MenuItem> menuCategory;
 
   //  생성자
   public Kiosk(Menu menu) {
@@ -32,7 +35,11 @@ public class Kiosk {
     while (true) {
       boolean isCartNotEmpty = order.getAddedToCart();
       // 카테고리 출력
-      menu.printCategory();
+      System.out.println("[ MAIN MENU ]");
+      for (int i = 0; i < menu.getCategory().length; i++) {
+        System.out.println(i + 1 + ". " + menu.getCategory(i));
+      }
+      System.out.println("0. 종료");
       if (isCartNotEmpty) {
         order.printOrderMenu();
       }
@@ -47,9 +54,12 @@ public class Kiosk {
           continue;
         }
         // 선택한 메뉴 출력
-        menu.printUserMenu(userMenuChoice);
+        System.out.println("\n🍽️ 선택한 메뉴");
+        printForm(menuCategory.get(userMenuChoice - 1));
 
         // 장바구니에 넣을건지 확인
+        System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
+        System.out.println("1. 확인       2. 취소");
         order.askAddToCart(userCategoryChoice, userMenuChoice);
       } catch (InputMismatchException e) {
         System.out.println(INPUT_TYPE_ERROR);
@@ -69,12 +79,17 @@ public class Kiosk {
       System.out.println(EXIT_PROGRAM_MESSAGE);
       return true;
     }
+    selectedCategory = menu.getCategory(this.userCategoryChoice - 1);
     return false;
   }
 
   private boolean selectMenu() throws IndexOutOfBoundsException {
     switch (userCategoryChoice) {
-      case 1, 2, 3 -> menu.printMenu(userCategoryChoice);
+      case 1, 2, 3 -> {
+        System.out.println("\n[ " + selectedCategory + " MENU ]");
+        menuCategory = menu.getCategoryMenuItem(selectedCategory);
+        printForm(menuCategory);
+      }
       case 4 -> {
         order.addToCart();
       }
@@ -93,4 +108,36 @@ public class Kiosk {
     return false;
   }
 
+  private boolean askAddToCart(){
+    System.out.println(CHOICE_PROMPT);
+    int addCheck = scanner.nextInt();
+    switch (addCheck){
+      case 1 -> {
+
+        return true;
+      }
+      case 2 -> {
+        System.out.println("장바구니에 메뉴를 담지 않았습니다. 메인 메뉴로 돌아갑니다.\n");
+        return false;
+      }
+      default -> System.out.println("잘못된 입력");
+    }
+    return false;
+  }
+
+  public void printForm(List<MenuItem> menuCategory){
+    for (int i = 0; i < menuCategory.size(); i++) {
+      System.out.printf("%d. %-13s | W %.1f | %s\n", i + 1,
+          menuCategory.get(i).getMenuName(),
+          menuCategory.get(i).getMenuPrice(),
+          menuCategory.get(i).getMenuDesc());
+    }
+  }
+
+  public void printForm(MenuItem selectedMenu){
+    System.out.printf("☞ %-14s | W %.1f | %s\n\n",
+        selectedMenu.getMenuName(),
+        selectedMenu.getMenuPrice(),
+        selectedMenu.getMenuDesc());
+  }
 }

@@ -10,9 +10,6 @@ public class Menu {
   //  속성
   private final Map<String, List<MenuItem>> categoryMenuMap = new HashMap<>();
   private final String[] category;
-  private int userCategoryChoiceIndex;
-  private String selectedCategory;
-  private int userMenuChoiceIndex;
 
   //  생성자
   public Menu(String[] category) {
@@ -44,57 +41,13 @@ public class Menu {
     categoryMenuMap.put("Dessert", desserts);
   }
 
-  // 카테고리를 출력하는 메소드
-  public void printCategory() {
-    System.out.println("[ MAIN MENU ]");
-    for (int i = 0; i < getCategory().length; i++) {
-      System.out.println(i + 1 + ". " + getCategory(i));
-    }
-    System.out.println("0. 종료");
-  }
-
-  /**
-   * 사용자가 선택한 카테고리의 메뉴를 출력하는 메소드
-   *
-   * @param userCategoryChoice 사용자가 선택한 카테고리 index
-   */
-  public void printMenu(int userCategoryChoice) {
-    setUserCategoryChoiceIndex(userCategoryChoice);
-
-    System.out.println("\n[ " + selectedCategory + " MENU ]");
-
-    List<MenuItem> menus = categoryMenuMap.get(selectedCategory);
-    for (int i = 0; i < menus.size(); i++) {
-      MenuItem menu = menus.get(i);
-      System.out.printf("%d. %-13s | W %.1f | %s\n", i + 1, menu.getMenuName(), menu.getMenuPrice(),
-          menu.getMenuDesc());
-    }
-
-    System.out.println("0. 뒤로가기");
-  }
-
-  /**
-   * 사용자가 선택한 메뉴를 출력하는 메소드
-   *
-   * @param userMenuChoice 사용자가 선택한 메뉴
-   */
-  public void printUserMenu(int userMenuChoice) throws IndexOutOfBoundsException {
-    setUserMenuChoiceIndex(userMenuChoice);
-
-    MenuItem selectedMenu = getMenuItems(selectedCategory).get(this.userMenuChoiceIndex);
-
-    System.out.println("\n🍽️ 선택한 메뉴");
-    System.out.printf("☞ %-14s | W %.1f | %s\n\n", selectedMenu.getMenuName(),
-        selectedMenu.getMenuPrice(), selectedMenu.getMenuDesc());
-  }
-
   /**
    * 사용자가 선택한 카테고리의 메뉴 아이템을 가져오는 Getter
    *
    * @param category 사용자가 선택한 카테고리
    * @return 새로운 카테고리의 메뉴 리스트
    */
-  public List<MenuItem> getMenuItems(String category) {
+  public List<MenuItem> getCategoryMenuItem(String category) {
     return new ArrayList<>(categoryMenuMap.get(category));
   }
 
@@ -117,22 +70,4 @@ public class Menu {
     return category.clone();
   }
 
-  /**
-   * 사용자가 선택한 카테고리 배열의 index를 설정하는 Setter selectedCategory도 동시에 초기화 진행
-   *
-   * @param userCategoryChoice 사용자가 선택한 배열의 index
-   */
-  private void setUserCategoryChoiceIndex(int userCategoryChoice) {
-    this.userCategoryChoiceIndex = userCategoryChoice - 1;
-    this.selectedCategory = getCategory(this.userCategoryChoiceIndex);
-  }
-
-  /**
-   * 사용자가 선택한 메뉴 배열의 index를 설정하는 Setter
-   *
-   * @param userMenuChoice 사용자가 선택한 메뉴의 index
-   */
-  private void setUserMenuChoiceIndex(int userMenuChoice) {
-    this.userMenuChoiceIndex = userMenuChoice - 1;
-  }
 }

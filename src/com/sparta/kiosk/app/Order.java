@@ -13,6 +13,8 @@ public class Order {
   private int userCategoryChoice;
   private int userMenuChoice;
   private boolean isAddedToCart;
+  private String selectedCategory;
+  private List<MenuItem> menuCategory;
   private List<MenuItem> menuCart = new ArrayList<>();
   private Scanner scanner = new Scanner(System.in);
 
@@ -21,26 +23,18 @@ public class Order {
     this.menu = menu;
   }
 
-//  기능
-
+  //  기능
   public void askAddToCart(int userCategoryChoice, int userMenuChoice) {
-    System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
-    System.out.println("1. 확인       2. 취소");
-    System.out.print(CHOICE_PROMPT);
-
     int addCheck = scanner.nextInt();
+    this.selectedCategory = menu.getCategory(userCategoryChoice - 1);
 
     switch (addCheck) {
       case 1 -> {
-        setUserCategoryChoice(userCategoryChoice);
-        setUserMenuChoice(userMenuChoice);
-
-        String category = menu.getCategory(this.userCategoryChoice);
-        MenuItem orderMenu = menu.getMenuItems(category).get(this.userMenuChoice);
-        menuCart.add(orderMenu);
+        menuCategory = menu.getCategoryMenuItem(selectedCategory);
+        menuCart.add(menuCategory.get(userMenuChoice - 1));
 
         setAddedToCart(true);
-        System.out.println(orderMenu.getMenuName() + " 이(가) 장바구니에 추가되었습니다.\n");
+        System.out.println(menuCategory.get(userMenuChoice - 1).getMenuName() + " 이(가) 장바구니에 추가되었습니다.\n");
       }
       case 2 -> {
         System.out.println("장바구니에 메뉴를 담지 않았습니다. 메인 메뉴로 돌아갑니다.\n");
