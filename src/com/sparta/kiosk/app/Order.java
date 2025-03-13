@@ -7,8 +7,8 @@ public class Order {
 
   //  속성
   private final Menu menu;
-  private boolean isAddedToCart;
   private final List<MenuItem> menuCart = new ArrayList<>();
+  private boolean isAddedToCart;
 
   //  생성자
   public Order(Menu menu) {
@@ -23,12 +23,6 @@ public class Order {
     menuCart.add(menuItem);
 
     setAddedToCart(true);
-    System.out.println("메뉴 추가 완료");
-    for (MenuItem mi : menuCart) {
-      System.out.println(mi.getMenuName());
-      System.out.println(mi.getMenuPrice());
-      System.out.println(mi.getMenuDesc());
-    }
   }
 
   public List<MenuItem> getMenuCart() {
