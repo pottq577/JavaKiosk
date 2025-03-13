@@ -33,7 +33,6 @@ public class Kiosk {
       boolean isCartNotEmpty = order.getAddedToCart();
       // 카테고리 출력
       menu.printCategory();
-
       if (isCartNotEmpty) {
         order.printOrderMenu();
       }
@@ -47,19 +46,11 @@ public class Kiosk {
         if (selectMenu()) {
           continue;
         }
-
         // 선택한 메뉴 출력
         menu.printUserMenu(userMenuChoice);
 
-        // 장바구니에 넣을거임?
-        order.askAddToCart(scanner, userCategoryChoice, userMenuChoice);
-
-        if (order.getAddedToCart()) {
-          order.printMenuAddedToCart();
-        } else {
-          System.out.println("ㄴㄴ 안삼");
-        }
-
+        // 장바구니에 넣을건지 확인
+        order.askAddToCart(userCategoryChoice, userMenuChoice);
       } catch (InputMismatchException e) {
         System.out.println(INPUT_TYPE_ERROR);
         scanner.nextLine();
@@ -72,7 +63,7 @@ public class Kiosk {
 
   private boolean selectCategory() throws InputMismatchException {
     System.out.print(CHOICE_PROMPT);
-    userCategoryChoice = scanner.nextInt();
+    this.userCategoryChoice = scanner.nextInt();
 
     if (userCategoryChoice == 0) {
       System.out.println(EXIT_PROGRAM_MESSAGE);
@@ -84,13 +75,16 @@ public class Kiosk {
   private boolean selectMenu() throws IndexOutOfBoundsException {
     switch (userCategoryChoice) {
       case 1, 2, 3 -> menu.printMenu(userCategoryChoice);
-      case 4, 5 -> System.out.println("주문 선택");
+      case 4 -> {
+        order.addToCart();
+      }
+      case 5 -> System.out.println("주문을 취소했습니다. 메인 메뉴로 돌아갑니다.\n");
       default -> {
         System.out.println("잘못된 선택입니다.");
       }
     }
     System.out.print(CHOICE_PROMPT);
-    userMenuChoice = scanner.nextInt();
+    this.userMenuChoice = scanner.nextInt();
 
     if (userMenuChoice == 0) {
       System.out.println(RETURN_TO_MAIN_MENU_MESSAGE);
