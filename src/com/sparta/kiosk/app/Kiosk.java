@@ -93,21 +93,7 @@ public class Kiosk {
         askOrderConfirm();
       }
     } else if (userCategoryChoice == 5) {
-      List<MenuItem> menuCart = order.getMenuCart();
-
-      System.out.println("\n[ ORDER CART ]");
-      for (MenuItem menuItem : menuCart) {
-        printForm(menuItem);
-      }
-      System.out.print("장바구니를 비우려면 1을, 취소하려면 2를 입력하세요.");
-      System.out.print(CHOICE_PROMPT);
-      int isClear = scanner.nextInt();
-      if (isClear == 1) {
-        System.out.println("\n장바구니를 비웁니다. 메인 메뉴로 돌아갑니다.");
-        order.clearMenuCart(userCategoryChoice);
-      } else {
-        System.out.println("\n장바구니를 비우지 않습니다. 메인 메뉴로 돌아갑니다.");
-      }
+      askClearCart();
     }
 
     return false;
@@ -150,37 +136,51 @@ public class Kiosk {
     return addCheck == 1;
   }
 
-  private void askOrderConfirm() throws IndexOutOfBoundsException {
+  private void askOrderConfirm() throws InputMismatchException {
     double totalPrice = 0;
-    List<MenuItem> menuCart = order.getMenuCart();
 
     System.out.println("아래와 같이 주문하시겠습니까?\n");
     System.out.println("[ Orders ]");
-    for (MenuItem menuItem : menuCart) {
+    for (MenuItem menuItem : order.getMenuCart()) {
       printForm(menuItem);
       totalPrice += menuItem.getMenuPrice();
     }
 
     System.out.println("[ Total ]");
-    System.out.println("총 금액: " + totalPrice + " W");
-
-    System.out.println("\n1. 주문하기        2. 메뉴판");
+    System.out.println("총 금액: " + totalPrice + " W\n");
+    System.out.println("1. 주문하기        2. 메뉴판");
     System.out.print(CHOICE_PROMPT);
+
     int orderCheck = scanner.nextInt();
 
     switch (orderCheck) {
       case 1 -> {
         System.out.println("주문이 완료되었습니다. 금액은 " + totalPrice + " W 입니다.");
-        menuCart.clear();
+        order.clearMenuCart();
       }
       case 2 -> {
         System.out.println("주문을 취소했습니다. 메뉴판으로 돌아갑니다.");
         userCategoryChoice = -1;
       }
       default -> System.out.println("잘못된 입력");
-
     }
+  }
 
+  private void askClearCart() throws InputMismatchException, IndexOutOfBoundsException {
+    System.out.println("\n[ ORDER CART ]");
+    for (MenuItem menuItem : order.getMenuCart()) {
+      printForm(menuItem);
+    }
+    System.out.print("장바구니를 비우려면 1을, 취소하려면 2를 입력하세요.");
+    System.out.print(CHOICE_PROMPT);
+    int isClear = scanner.nextInt();
+
+    if (isClear == 1) {
+      System.out.println("\n장바구니를 비웁니다. 메인 메뉴로 돌아갑니다.");
+      order.clearMenuCart();
+    } else {
+      System.out.println("\n장바구니를 비우지 않습니다. 메인 메뉴로 돌아갑니다.");
+    }
   }
 
   private void printForm(List<MenuItem> menuCategory) {

@@ -26,9 +26,7 @@ public class Order {
     return new ArrayList<>(menuCart);
   }
 
-  public void clearMenuCart(int userCategoryChoice) {
-    if (userCategoryChoice == 5) {
-      menuCart.clear();
-    }
+  public void clearMenuCart() {
+    menuCart.clear();
   }
 }
