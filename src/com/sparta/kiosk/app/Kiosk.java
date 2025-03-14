@@ -164,7 +164,7 @@ public class Kiosk {
     }
   }
 
-  public void printForm(List<MenuItem> menuCategory) {
+  private void printForm(List<MenuItem> menuCategory) {
     for (int i = 0; i < menuCategory.size(); i++) {
       System.out.printf("%d. %-13s | W %.1f | %s\n", i + 1,
           menuCategory.get(i).getMenuName(),
@@ -173,7 +173,7 @@ public class Kiosk {
     }
   }
 
-  public void printForm(MenuItem selectedMenu) {
+  private void printForm(MenuItem selectedMenu) {
     System.out.printf("☞ %-14s | W %.1f | %s\n\n",
         selectedMenu.getMenuName(),
         selectedMenu.getMenuPrice(),
