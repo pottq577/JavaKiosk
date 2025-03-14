@@ -18,12 +18,10 @@ public class Kiosk {
   private final Menu menu;
   private final Order order;
   private final Scanner scanner = new Scanner(System.in);
-  private int userCategoryChoice;
+  private int userCategoryChoice = -1;
   private String selectedCategory;
   private int userMenuChoice;
   private List<MenuItem> menuCategory;
-
-  private boolean isAddToCart;
 
   //  생성자
   public Kiosk(Menu menu) {
@@ -42,10 +40,11 @@ public class Kiosk {
         System.out.println(i + 1 + ". " + menu.getCategory(i));
       }
       System.out.println("0. 종료");
+
       if (!isCartEmpty) {
         System.out.println("\n[ ORDER MENU ]");
-        System.out.println("4. Orders");
-        System.out.println("5. Cancel");
+        System.out.println("4. Orders  |  장바구니 목록을 조회합니다.");
+        System.out.println("5. Cancel  |  장바구니를 비웁니다.");
       }
 
       try {
@@ -62,8 +61,7 @@ public class Kiosk {
         printForm(menuCategory.get(userMenuChoice - 1));
 
         // 장바구니에 넣을건지 확인
-        isAddToCart = askAddToCart();
-
+        boolean isAddToCart = askAddToCart();
         if (isAddToCart) {
           order.addToCart(userCategoryChoice, userMenuChoice);
         }
@@ -77,32 +75,49 @@ public class Kiosk {
     }
   }
 
-  private boolean selectCategory() throws InputMismatchException {
+  private boolean selectCategory() throws InputMismatchException, IndexOutOfBoundsException {
     System.out.print(CHOICE_PROMPT);
     this.userCategoryChoice = scanner.nextInt();
 
     if (userCategoryChoice == 0) {
       System.out.println(EXIT_PROGRAM_MESSAGE);
+      scanner.nextLine();
+      userCategoryChoice = -1;
       return true;
     }
 
     if (userCategoryChoice >= 1 && userCategoryChoice <= 3) {
       selectedCategory = menu.getCategory(userCategoryChoice - 1);
     } else if (userCategoryChoice == 4) {
-      if (isAddToCart) {
+      if (!order.getMenuCart().isEmpty()) {
         askOrderConfirm();
       }
     } else if (userCategoryChoice == 5) {
-      System.out.println("ㄴㄴ 고민좀 해봄");
+      List<MenuItem> menuCart = order.getMenuCart();
+
+      System.out.println("\n[ ORDER CART ]");
+      for (MenuItem menuItem : menuCart) {
+        printForm(menuItem);
+      }
+      System.out.print("장바구니를 비우려면 1을, 취소하려면 2를 입력하세요.");
+      System.out.print(CHOICE_PROMPT);
+      int isClear = scanner.nextInt();
+      if (isClear == 1) {
+        System.out.println("\n장바구니를 비웁니다. 메인 메뉴로 돌아갑니다.");
+        order.clearMenuCart(userCategoryChoice);
+      } else {
+        System.out.println("\n장바구니를 비우지 않습니다. 메인 메뉴로 돌아갑니다.");
+      }
     }
 
     return false;
   }
 
-  private boolean selectMenu() throws IndexOutOfBoundsException {
+  private boolean selectMenu() throws InputMismatchException, IndexOutOfBoundsException {
     System.out.println("\n[ " + selectedCategory + " MENU ]");
     menuCategory = menu.getCategoryMenuItem(selectedCategory);
     printForm(menuCategory);
+    System.out.println("0. 뒤로가기");
 
     System.out.print(CHOICE_PROMPT);
     this.userMenuChoice = scanner.nextInt();
@@ -115,7 +130,7 @@ public class Kiosk {
     return false;
   }
 
-  private boolean askAddToCart() throws IndexOutOfBoundsException {
+  private boolean askAddToCart() throws InputMismatchException, IndexOutOfBoundsException {
     System.out.println("위 메뉴를 장바구니에 추가하시겠습니까?");
     System.out.println("1. 확인       2. 취소");
     System.out.print(CHOICE_PROMPT);
@@ -128,6 +143,7 @@ public class Kiosk {
       }
       case 2 -> {
         System.out.println("장바구니에 메뉴를 담지 않았습니다. 메인 메뉴로 돌아갑니다.\n");
+        userCategoryChoice = -1;
       }
     }
 
@@ -148,20 +164,23 @@ public class Kiosk {
     System.out.println("[ Total ]");
     System.out.println("총 금액: " + totalPrice + " W");
 
-    System.out.println("\n1. 주문        2. 메뉴판");
+    System.out.println("\n1. 주문하기        2. 메뉴판");
     System.out.print(CHOICE_PROMPT);
     int orderCheck = scanner.nextInt();
 
     switch (orderCheck) {
       case 1 -> {
-        System.out.println("주문이 완료되었습니다. 금액은 " + totalPrice + " W 입니다.\n");
+        System.out.println("주문이 완료되었습니다. 금액은 " + totalPrice + " W 입니다.");
         menuCart.clear();
       }
       case 2 -> {
-        System.out.println("주문을 취소했습니다. 메뉴판으로 돌아갑니다.\n");
+        System.out.println("주문을 취소했습니다. 메뉴판으로 돌아갑니다.");
+        userCategoryChoice = -1;
       }
       default -> System.out.println("잘못된 입력");
+
     }
+
   }
 
   private void printForm(List<MenuItem> menuCategory) {

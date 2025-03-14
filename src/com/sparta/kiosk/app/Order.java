@@ -23,6 +23,12 @@ public class Order {
   }
 
   public List<MenuItem> getMenuCart() {
-    return menuCart;
+    return new ArrayList<>(menuCart);
+  }
+
+  public void clearMenuCart(int userCategoryChoice) {
+    if (userCategoryChoice == 5) {
+      menuCart.clear();
+    }
   }
 }
