@@ -8,7 +8,6 @@ public class Order {
   //  속성
   private final Menu menu;
   private final List<MenuItem> menuCart = new ArrayList<>();
-  private boolean isAddedToCart;
 
   //  생성자
   public Order(Menu menu) {
@@ -21,19 +20,9 @@ public class Order {
     MenuItem menuItem = menu.getCategoryMenuItem(category).get(userMenuChoice - 1);
 
     menuCart.add(menuItem);
-
-    setAddedToCart(true);
   }
 
   public List<MenuItem> getMenuCart() {
     return menuCart;
-  }
-
-  public boolean getAddedToCart() {
-    return isAddedToCart;
-  }
-
-  public void setAddedToCart(boolean isAddedToCart) {
-    this.isAddedToCart = isAddedToCart;
   }
 }

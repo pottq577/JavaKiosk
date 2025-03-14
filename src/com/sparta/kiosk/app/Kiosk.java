@@ -35,14 +35,14 @@ public class Kiosk {
   public void start() {
 
     while (true) {
-      boolean isCartNotEmpty = order.getAddedToCart();
+      boolean isCartEmpty = order.getMenuCart().isEmpty();
       // 카테고리 출력
       System.out.println("[ MAIN MENU ]");
       for (int i = 0; i < menu.getCategory().length; i++) {
         System.out.println(i + 1 + ". " + menu.getCategory(i));
       }
       System.out.println("0. 종료");
-      if (isCartNotEmpty) {
+      if (!isCartEmpty) {
         System.out.println("\n[ ORDER MENU ]");
         System.out.println("4. Orders");
         System.out.println("5. Cancel");
@@ -123,7 +123,6 @@ public class Kiosk {
 
     switch (addCheck) {
       case 1 -> {
-        order.setAddedToCart(true);
         System.out.println(menuCategory.get(userMenuChoice - 1).getMenuName()
             + " 이(가) 장바구니에 추가되었습니다.\n");
       }
