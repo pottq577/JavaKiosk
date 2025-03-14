@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=Waving&color=auto&height=300&section=header&text=JavaCalculator&fontSize=90&fontAlignY=35&desc=자바의%20객체지향적%20설계를%20중심으로%20점진적으로%20발전하는%20키오스크%20프로젝트입니다.&descAlignY=60&theme=gruvbox_light)
+![header](https://capsule-render.vercel.app/api?type=Waving&color=auto&height=300&section=header&text=JavaKiosk&fontSize=90&fontAlignY=35&desc=자바의%20객체지향적%20설계를%20중심으로%20점진적으로%20발전하는%20키오스크%20프로젝트입니다.&descAlignY=60&theme=gruvbox_light)
 
 <br/>
 
